@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CrudFlickrbackendApplication {
+public class FlickrbackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CrudFlickrbackendApplication.class, args);
+		SpringApplication.run(FlickrbackendApplication.class, args);
 	}
 
 }
