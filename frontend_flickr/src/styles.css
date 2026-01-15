@@ -1,4 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Ensure Tailwind utilities have higher specificity over Material defaults */
+.bg-gray-100 { background-color: rgb(243 244 246) !important; }
+.bg-gray-200 { background-color: rgb(229 231 235) !important; }
+
+/* Fix Material card styling with Tailwind */
+mat-card.h-full { height: 100%; display: flex; flex-direction: column; }
+mat-card .mat-mdc-card-content:last-child { padding-bottom: 16px; }

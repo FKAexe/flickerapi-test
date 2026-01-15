@@ -182,9 +182,14 @@ public class FlickrService {
      * Convertir FlickrPhoto (de búsqueda) a ImageDTO
      */
     private ImageDTO convertToImageDTO(FlickrPhoto photo) {
+        // LOG TEMPORAL
+        logger.info("=== Processing photo: {} ===", photo.getId());
+        logger.info("photo.getUrlM(): {}", photo.getUrlM());
+        logger.info("photo.getUrlL(): {}", photo.getUrlL());
+
         // Solo convertir si tiene al menos url_m
         if (photo.getUrlM() == null || photo.getUrlM().isEmpty()) {
-            logger.debug("Skipping photo {} without thumbnail URL", photo.getId());
+            logger.warn("⚠️ Skipping photo {} - no thumbnail URL", photo.getId());
             return null;
         }
 
@@ -200,6 +205,10 @@ public class FlickrService {
         dto.setThumbnailUrl(photo.getUrlM());
         dto.setLargeUrl(photo.getUrlL() != null && !photo.getUrlL().isEmpty()
                 ? photo.getUrlL() : photo.getUrlM());
+
+        // LOG TEMPORAL
+        logger.info("✅ DTO created - thumbnailUrl: {}", dto.getThumbnailUrl());
+        logger.info("✅ DTO created - largeUrl: {}", dto.getLargeUrl());
 
         return dto;
     }

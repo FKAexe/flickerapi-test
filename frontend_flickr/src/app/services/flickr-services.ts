@@ -6,7 +6,7 @@ import { IImage, ISearchResponse } from '../interfaces/interfaces';
 @Injectable({
   providedIn: 'root'
 })
-export class ImageService {
+export class FlickrService {
   private apiUrl = 'http://localhost:8080/api/images';
 
   constructor(private http: HttpClient) { }
