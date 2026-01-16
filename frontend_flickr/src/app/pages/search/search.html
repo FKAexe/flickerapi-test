@@ -1,12 +1,12 @@
 <div class="min-h-screen bg-gray-800">
   <!-- Toolbar/Header -->
-  <mat-toolbar color="primary" class="shadow-md">
-    <span class="text-xl font-semibold">Flickr Image Search</span>
+  <mat-toolbar color="primary" class="shadow-md flex-row items-center justify-center">
+    <span class="font-semibold text-fuchsia-300">Flickr Image Search</span>
   </mat-toolbar>
 
   <div class="max-w-7xl mx-auto px-4 py-6">
     <!-- Barra de búsqueda -->
-    <div class="flex flex-col sm:flex-row gap-4 items-center justify-center mb-8">
+    <div class="flex flex-col sm:flex-row gap-4 items-center justify-center mb-4 sm:mb-2">
       <mat-form-field appearance="outline" class="w-full sm:w-120">
         <input
           matInput
@@ -23,7 +23,7 @@
         color="primary"
         (click)="onSearch()"
         [disabled]="isLoading || !searchQuery.trim()"
-        class="h-14 px-8"
+        class="h-14 px-2 mb-4 flex items-center justify-center"
       >
         @if (!isLoading) {
           <span>Search</span>
@@ -61,10 +61,10 @@
 
     <!-- Información de resultados -->
     @if (images.length > 0 && !isLoading) {
-      <div class="mb-4 text-gray-600">
+      <div class="mb-4 text-white">
         <p>
-          Showing <strong class="text-gray-800">{{ images.length }}</strong> of
-          <strong class="text-gray-800">{{ totalResults }}</strong> images
+          Showing <strong class="text-white">{{ images.length }}</strong> of
+          <strong class="text-white">{{ totalResults }}</strong> images
         </p>
       </div>
     }

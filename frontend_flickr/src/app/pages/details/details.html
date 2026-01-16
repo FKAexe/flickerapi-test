@@ -1,16 +1,42 @@
 @if (image) {
-  <div>
-    <div class="p-4 max-w-4xl mx-auto">
-       <div>
-        <p class="text-white">
-            {{ image.id }}
-        </p>
-       </div>
-    </div>
+  <div class="p-4 max-w-4xl mx-auto min-h-screen flex items-center justify-center">
+    <!-- Card de detalles de imagen -->
+    <mat-card>
+      <mat-card-header class="mb-4">
+        <mat-card-title>Detalle de imagen</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content class="p-4">
+        <div class="flex flex-col md:flex-row gap-8 items-center">
+          <!-- Imagen -->
+          <div class="w-full md:w-1/2">
+            <img
+              [src]="image.largeUrl"
+              [alt]="image.title"
+              class="w-full h-auto border border-black object-contain"
+            />
+          </div>
+
+          <!-- Información -->
+          <div class="w-full md:w-1/2 flex flex-col gap-4 justify-center">
+            <p class="text-lg font-medium">{{ image.title || 'Título' }}</p>
+            <p class="text-gray-600">{{ image.ownerName || 'Autor' }}</p>
+            <p class="text-gray-500">{{ image.description || 'Descripción' }}</p>
+            <a
+              [href]="image.largeUrl"
+              target="_blank"
+              download
+              class="text-blue-600 hover:underline"
+            >
+              [Descargar]
+            </a>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
-  @else{
-    <p>
-        Loading...
-    </p>
-  }
+} @else {
+  <div class="p-4 max-w-4xl mx-auto">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
 }
