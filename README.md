@@ -6,21 +6,21 @@ Prueba técnica para Innporting
 #Backend: Java / Spring
 #Frontend: Typescript/ Angular
 
-#Características Principales:
+## Características Principales:
+
 - REST API hecha en Spring con Java como lenguaje de programación.
 - Frontend hecho en Angular.
 - Diseño responsive usando Tailwind CSS y Angular Material.
 - Scroll infinito a través de los resultados de búsqueda.
 - Vista de detalles con información completa de la imagen.
 
-#Capturas de pantalla
+## Capturas de pantalla
 
 Búsqueda: 
 <img width="1337" height="556" alt="image" src="https://github.com/user-attachments/assets/e24357fa-0b9f-47d5-88ac-ca1c3ee6a2ee" />
 Detalles:
 <img width="995" height="590" alt="image" src="https://github.com/user-attachments/assets/afd69cd1-603d-44d0-b4c4-923857327455" />
 
-#Endpoints
 
 ## Endpoints
 
@@ -42,7 +42,7 @@ Descargar una imagen
 Requisitos:
 Para lanzar la API necesitas una llave de FlickrAPI para añadir al backend.
 
-Instrucciones:
+## Instrucciones para uso:
 
 ### 1. Clonar el repositorio
 ```bash
