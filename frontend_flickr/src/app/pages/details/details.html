@@ -1,1 +1,42 @@
-<p>details works!</p>
+@if (image) {
+  <div class="max-w-4xl mx-auto min-h-screen flex items-center justify-center">
+    <!-- Card de detalles de imagen -->
+    <mat-card class="py-8 px-4">
+      <mat-card-content>
+        <div class="flex flex-col md:flex-row gap-8 items-center">
+          <!-- Imagen -->
+          <div class="w-full md:w-1/2">
+            <img
+              [src]="image.largeUrl"
+              [alt]="image.title"
+              class="w-full h-auto border border-black object-contain"
+            />
+          </div>
+
+          <!-- Información -->
+          <div class="w-full md:w-1/2 flex flex-col gap-4 justify-center">
+            <p class="text-lg font-medium">{{ image.title || 'Título' }}</p>
+            <p class="text-gray-600">{{ image.ownerName || 'Autor anónimo' }}</p>
+            <p class="text-gray-300">{{ image.description || 'Descripción no encontrada.' }}</p>
+            <p class="text-gray-500">Etiquetas:</p>
+            @if (getTags().length === 0) {
+              <p class="text-gray-400 italic">No hay etiquetas disponibles.</p>
+            } @else{
+            <div class="flex flex-wrap gap-1 max-h-24 overflow-y-auto border-1 border-gray-600 p-2 rounded">
+              @for (tag of getTags(); track tag) {
+                <mat-chip>{{ tag }}</mat-chip>
+              }
+            </div>
+            }
+            <!-- Botón de descargar imagen-->
+            <a class="w-40 self-center" matButton="outlined" [href]="image.largeUrl" target="_blank">Download</a>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+} @else {
+  <div class="p-4 max-w-4xl mx-auto min-h-screen flex items-center justify-center">
+    <mat-spinner diameter="80"></mat-spinner>
+  </div>
+}

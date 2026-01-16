@@ -1,0 +1,15 @@
+.search-field {
+  width: 100%;
+  max-width: 500px;
+}
+
+.search-field .mat-mdc-form-field-infix {
+  min-width: 200px;
+}
+
+@media (min-width: 640px) {
+  .search-field {
+    min-width: 400px;
+  }
+}
+

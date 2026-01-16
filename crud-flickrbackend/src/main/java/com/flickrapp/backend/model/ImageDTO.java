@@ -11,11 +11,7 @@ public class ImageDTO {
 
     private String description;
     private String tags;
-
-    @JsonProperty("url_m")
     private String thumbnailUrl;
-
-    @JsonProperty("url_l")
     private String largeUrl;
 
 
