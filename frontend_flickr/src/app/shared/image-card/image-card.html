@@ -1,0 +1,51 @@
+<mat-card class="h-full cursor-pointer group relative" [routerLink]="['/detail', image.id]">
+  <div class="overflow-hidden">
+    @if (!imageError) {
+      <img
+        [src]="image.thumbnailUrl"
+        [alt]="image.title"
+        loading="lazy"
+        (error)="onImageError()"
+        class="w-full h-48 object-cover rounded-t-lg rounded-b-none"
+      >
+    }
+
+    @if (imageError) {
+      <div class="flex flex-col items-center justify-center h-48 bg-gray-200 text-gray-500">
+        <mat-icon>broken_image</mat-icon>
+        <p class="text-sm mt-2">Image unavailable</p>
+      </div>
+    }
+  </div>
+
+  <mat-card-content class="p-4 mb-4">
+    <h3 class="text-sm font-medium text-gray-200 truncate mt-4 mb-4" [title]="image.title">
+      {{ image.title || 'Untitled' }}
+    </h3>
+
+    @if (image.ownerName) {
+      <p class="flex items-center gap-1 text-xs text-gray-500 mt-1">
+        <mat-icon class="text-base" style="font-size: 16px; width: 16px; height: 16px;">person</mat-icon>
+        <span class="truncate" [title]="image.ownerName">{{ image.ownerName }}</span>
+      </p>
+    }
+
+    @if (getTags().length > 0) {
+      <div class="flex flex-wrap gap-1 mt-2 mb-4">
+        @for (tag of getTags(); track tag) {
+          <mat-chip class="text-xs">{{ tag }}</mat-chip>
+        }
+      </div>
+    }
+  </mat-card-content>
+
+  <button
+    mat-mini-fab
+    color="warn"
+    class="!absolute top-2 right-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200 z-10"
+    (click)="onRemove($event)"
+    aria-label="Remove image"
+  >
+    <mat-icon>delete</mat-icon>
+  </button>
+</mat-card>

@@ -1,0 +1,42 @@
+import { Component, inject, Input } from '@angular/core';
+import {FlickrService} from '../../services/flickr-services';
+import {IImage} from '../../interfaces/interfaces';
+import {Nav} from '../../shared/nav/nav';
+import {RouterLink} from '@angular/router';
+import {MATERIAL_MODULES} from '../../material-imports';
+@Component({
+  selector: 'app-details',
+  imports: [RouterLink, ...MATERIAL_MODULES, Nav],
+  templateUrl: './details.html',
+  styleUrl: './details.css',
+})
+export class Details {
+
+  @Input() id: string = "";
+  image!: IImage;
+  flickrService = inject(FlickrService);
+
+  async ngOnInit() {
+    const imageId = this.id;
+    const response = await this.flickrService.getImageDetail(imageId);
+    if(!response) {
+      console.log('Image not found');
+    }
+    this.image = response!;
+  } 
+  getTags(): string[] {
+    if (!this.image.tags) return [];
+    return this.image.tags
+      .split(' ')
+      .filter(tag => tag.length > 0)
+  }
+  async onDownload(): Promise<void> {
+    const blob = await this.flickrService.downloadImage(this.id);
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${this.image.title || 'image'}.jpg`;
+    link.click();
+    window.URL.revokeObjectURL(url);
+}
+}

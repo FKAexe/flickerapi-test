@@ -1,0 +1,93 @@
+<div class="min-h-screen bg-gray-800">
+<app-nav></app-nav>
+  <div class="max-w-7xl mx-auto px-4 py-6">
+    <!-- Barra de búsqueda -->
+    <div class="flex flex-col sm:flex-row gap-4 items-center justify-center mb-4 sm:mb-2">
+      <mat-form-field appearance="outline" class="w-full sm:w-120">
+        <input
+          matInput
+          [(ngModel)]="searchQuery"
+          (keypress)="onKeyPress($event)"
+          placeholder="e.g. mountains, sunset, cats..."
+          [disabled]="isLoading"
+        >
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onSearch()"
+        [disabled]="isLoading || !searchQuery.trim()"
+        class="h-14 px-2 mb-4 flex items-center justify-center"
+      >
+        @if (!isLoading) {
+          <span class="text-white">Search</span>
+        }
+        @if (isLoading && images.length === 0) {
+          <mat-spinner diameter="20"></mat-spinner>
+        }
+      </button>
+    </div>
+
+    <!-- Mensaje de error -->
+    @if (errorMessage) {
+      <div class="flex items-center justify-center gap-2 bg-red-100 text-red-700 p-4 rounded-lg mb-6">
+        <mat-icon>error</mat-icon>
+        <span>{{ errorMessage }}</span>
+      </div>
+    }
+
+    <!-- Loading spinner inicial -->
+    @if (isLoading && images.length === 0) {
+      <div class="flex flex-col items-center justify-center py-16">
+        <mat-spinner></mat-spinner>
+        <p class="mt-4 text-gray-600">Searching images...</p>
+      </div>
+    }
+
+    <!-- Mensaje de bienvenida -->
+    @if (images.length === 0 && !isLoading) {
+      <div class="flex flex-col items-center justify-center py-16 text-center">
+        <mat-icon class="text-6xl text-white mb-4" style="font-size: 64px; width: 64px; height: 64px;">image_search</mat-icon>
+        <h2 class="text-2xl font-semibold text-white mb-2">Busca imágenes usando Flickr.</h2>
+        <p class="text-gray-200 mb-6">Introduce un término de búsqueda en la barra que aparece arriba.</p>
+      </div>
+    }
+
+    <!-- Información de resultados -->
+    @if (images.length > 0 && !isLoading) {
+      <div class="mb-4 text-white">
+        <p>
+          Showing <strong class="text-white">{{ images.length }}</strong> of
+          <strong class="text-white">{{ totalResults }}</strong> images
+        </p>
+      </div>
+    }
+
+    <!-- Listado de imágenes -->
+    @if (images.length > 0) {
+      <app-image-list
+        [images]="images"
+        [isLoading]="isLoading"
+        (imageRemoved)="onImageRemoved($event)"
+      ></app-image-list>
+    }
+
+    <!-- Infinite scroll sentinel -->
+    @if (images.length > 0 && hasMorePages()) {
+      <div #scrollSentinel class="flex justify-center py-8">
+        @if (isLoading) {
+          <mat-spinner diameter="40"></mat-spinner>
+        }
+      </div>
+    }
+
+    <!-- Fin de resultados -->
+    @if (images.length > 0 && !hasMorePages()) {
+      <div class="text-center py-8 text-gray-500">
+        <p>You've reached the end of the results</p>
+      </div>
+    }
+  </div>
+</div>

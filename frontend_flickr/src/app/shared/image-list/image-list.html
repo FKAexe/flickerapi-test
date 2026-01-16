@@ -1,0 +1,7 @@
+<div class="flex flex-wrap gap-4 justify-center">
+  @for (image of images; track image.id) {
+    <div class="flex-shrink-0 w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.75rem)] lg:w-[calc(25%-0.75rem)]">
+      <app-image-card [image]="image" (remove)="onRemoveImage($event)"></app-image-card>
+    </div>
+  }
+</div>
