@@ -23,4 +23,10 @@ export class Details {
     }
     this.image = response!;
   } 
+  getTags(): string[] {
+    if (!this.image.tags) return [];
+    return this.image.tags
+      .split(' ')
+      .filter(tag => tag.length > 0)
+  }
 }
