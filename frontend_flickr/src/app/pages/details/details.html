@@ -1,7 +1,13 @@
+<app-nav></app-nav>
 @if (image) {
   <div class="max-w-4xl mx-auto min-h-screen flex items-center justify-center">
+    <!--Boton para regresar-->
+   
     <!-- Card de detalles de imagen -->
-    <mat-card class="py-8 px-4">
+    <mat-card class="py-6 px-4 relative">
+      <button mat-icon-button color="primary" routerLink="/" class="!absolute top-2 right-2">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
       <mat-card-content>
         <div class="flex flex-col md:flex-row gap-8 items-center">
           <!-- Imagen -->

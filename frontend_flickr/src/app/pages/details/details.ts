@@ -1,11 +1,12 @@
 import { Component, inject, Input } from '@angular/core';
 import {FlickrService} from '../../services/flickr-services';
 import {IImage} from '../../interfaces/interfaces';
+import {Nav} from '../../shared/nav/nav';
 import {RouterLink} from '@angular/router';
 import {MATERIAL_MODULES} from '../../material-imports';
 @Component({
   selector: 'app-details',
-  imports: [RouterLink, ...MATERIAL_MODULES],
+  imports: [RouterLink, ...MATERIAL_MODULES, Nav],
   templateUrl: './details.html',
   styleUrl: './details.css',
 })
