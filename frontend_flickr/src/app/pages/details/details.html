@@ -29,7 +29,7 @@
             </div>
             }
             <!-- Botón de descargar imagen-->
-            <a class="w-40 self-center" matButton="outlined" [href]="image.largeUrl" target="_blank">Download</a>
+            <button class="w-40 self-center" mat-raised-button (click)="onDownload()">Descargar</button>
           </div>
         </div>
       </mat-card-content>
