@@ -1,6 +1,6 @@
 <app-nav></app-nav>
 @if (image) {
-  <div class="max-w-4xl mx-auto min-h-screen flex items-center justify-center">
+  <div class="max-w-4xl mx-auto min-h-[calc(100vh-64px)] flex items-center justify-center">
     <!--Boton para regresar-->
    
     <!-- Card de detalles de imagen -->
@@ -42,7 +42,7 @@
     </mat-card>
   </div>
 } @else {
-  <div class="p-4 max-w-4xl mx-auto min-h-screen flex items-center justify-center">
+  <div class="p-4 max-w-4xl mx-auto min-h-[calc(100vh-64px)] flex items-center justify-center">
     <mat-spinner diameter="80"></mat-spinner>
   </div>
 }
