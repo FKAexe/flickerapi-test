@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {Nav} from '../../shared/nav/nav';
@@ -20,7 +20,9 @@ import { MATERIAL_MODULES } from '../../material-imports';
   templateUrl: './search.html',
   styleUrls: ['./search.css']
 })
-export class Search {
+export class Search implements AfterViewInit, OnDestroy {
+  @ViewChild('scrollSentinel') scrollSentinel!: ElementRef;
+
   searchQuery: string = '';
   images: IImage[] = [];
   isLoading: boolean = false;
@@ -30,7 +32,43 @@ export class Search {
   totalResults: number = 0;
   pageSize: number = 20;
 
+  private observer: IntersectionObserver | null = null;
+
   constructor(private imageService: FlickrService) {}
+
+  ngAfterViewInit(): void {
+    this.setupIntersectionObserver();
+  }
+
+  ngOnDestroy(): void {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+  }
+
+  private setupIntersectionObserver(): void {
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting && !this.isLoading && this.hasMorePages()) {
+          this.loadMore();
+        }
+      },
+      {
+        root: null,
+        rootMargin: '100px',
+        threshold: 0
+      }
+    );
+
+    this.observeSentinel();
+  }
+
+  private observeSentinel(): void {
+    if (this.observer && this.scrollSentinel?.nativeElement) {
+      this.observer.observe(this.scrollSentinel.nativeElement);
+    }
+  }
 
   /**
    * Ejecutar búsqueda (reinicia la paginación)
@@ -58,6 +96,7 @@ export class Search {
       this.images = [];
     } finally {
       this.isLoading = false;
+      setTimeout(() => this.observeSentinel(), 0);
     }
   }
 
@@ -82,8 +121,10 @@ export class Search {
       this.currentPage--;
     } finally {
       this.isLoading = false;
+      setTimeout(() => this.observeSentinel(), 0);
     }
   }
+
   onImageRemoved(imageId: string): void {
     this.images = this.images.filter(img => img.id !== imageId);
     console.log(`Image ${imageId} removed from list`);

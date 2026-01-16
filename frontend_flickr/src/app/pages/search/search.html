@@ -74,23 +74,12 @@
       ></app-image-list>
     }
 
-    <!-- Botón Load More -->
+    <!-- Infinite scroll sentinel -->
     @if (images.length > 0 && hasMorePages()) {
-      <div class="flex justify-center py-8">
-        <button
-          mat-raised-button
-          color="accent"
-          (click)="loadMore()"
-          [disabled]="isLoading"
-          class="px-8 py-2"
-        >
-          @if (isLoading) {
-            <mat-spinner diameter="20"></mat-spinner>
-          }
-          @if (!isLoading) {
-            <span>Load More ({{ currentPage }}/{{ totalPages }})</span>
-          }
-        </button>
+      <div #scrollSentinel class="flex justify-center py-8">
+        @if (isLoading) {
+          <mat-spinner diameter="40"></mat-spinner>
+        }
       </div>
     }
 
