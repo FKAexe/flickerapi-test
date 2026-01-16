@@ -13,11 +13,11 @@
     @if (imageError) {
       <div class="flex flex-col items-center justify-center h-48 bg-gray-200 text-gray-500">
         <mat-icon>broken_image</mat-icon>
-        <p class="text-sm mt-2">Image unavailable</p>
+        <p class="text-sm mt-2">Imagen no disponible</p>
       </div>
     }
   </div>
-
+  
   <mat-card-content class="p-4 mb-4">
     <h3 class="text-sm font-medium text-gray-200 truncate mt-4 mb-4" [title]="image.title">
       {{ image.title || 'Untitled' }}

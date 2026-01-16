@@ -8,7 +8,7 @@
           matInput
           [(ngModel)]="searchQuery"
           (keypress)="onKeyPress($event)"
-          placeholder="e.g. mountains, sunset, cats..."
+          placeholder="ej: montaña, atardecer, perros"
           [disabled]="isLoading"
         >
         <mat-icon matSuffix>search</mat-icon>
@@ -22,7 +22,7 @@
         class="h-14 px-2 mb-4 flex items-center justify-center"
       >
         @if (!isLoading) {
-          <span class="text-white">Search</span>
+          <span class="text-white">Buscar</span>
         }
         @if (isLoading && images.length === 0) {
           <mat-spinner diameter="20"></mat-spinner>
@@ -42,7 +42,7 @@
     @if (isLoading && images.length === 0) {
       <div class="flex flex-col items-center justify-center py-16">
         <mat-spinner></mat-spinner>
-        <p class="mt-4 text-gray-600">Searching images...</p>
+        <p class="mt-4 text-gray-600">Buscando...</p>
       </div>
     }
 
@@ -59,8 +59,8 @@
     @if (images.length > 0 && !isLoading) {
       <div class="mb-4 text-white">
         <p>
-          Showing <strong class="text-white">{{ images.length }}</strong> of
-          <strong class="text-white">{{ totalResults }}</strong> images
+          Mostrando <strong class="text-white">{{ images.length }}</strong> de
+          <strong class="text-white">{{ totalResults }}</strong> imágenes.
         </p>
       </div>
     }
@@ -74,7 +74,7 @@
       ></app-image-list>
     }
 
-    <!-- Infinite scroll sentinel -->
+    <!-- Sentinel de scroll infinito -->
     @if (images.length > 0 && hasMorePages()) {
       <div #scrollSentinel class="flex justify-center py-8">
         @if (isLoading) {
@@ -86,7 +86,7 @@
     <!-- Fin de resultados -->
     @if (images.length > 0 && !hasMorePages()) {
       <div class="text-center py-8 text-gray-500">
-        <p>You've reached the end of the results</p>
+        <p>Ups! Ya no hay más imágenes.</p>
       </div>
     }
   </div>

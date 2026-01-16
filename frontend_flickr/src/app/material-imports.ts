@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+//Modulo de material que se usa en la app
 export const MATERIAL_MODULES = [
   MatToolbarModule,
   MatButtonModule,

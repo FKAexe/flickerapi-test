@@ -46,6 +46,7 @@ export class Search implements AfterViewInit, OnDestroy {
     }
   }
 
+  //Carga resultados scroll infinito
   private setupIntersectionObserver(): void {
     this.observer = new IntersectionObserver(
       (entries) => {
@@ -63,7 +64,7 @@ export class Search implements AfterViewInit, OnDestroy {
 
     this.observeSentinel();
   }
-
+  
   private observeSentinel(): void {
     if (this.observer && this.scrollSentinel?.nativeElement) {
       this.observer.observe(this.scrollSentinel.nativeElement);
