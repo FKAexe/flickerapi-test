@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {Nav} from '../../shared/nav/nav';
 import { FlickrService } from '../../services/flickr-services';
 import { IImage, ISearchResponse } from '../../interfaces/interfaces';
 import { ImageListComponent } from '../../shared/image-list/image-list';
@@ -14,6 +15,7 @@ import { MATERIAL_MODULES } from '../../material-imports';
     FormsModule,
     ImageListComponent,
     ...MATERIAL_MODULES
+    ,Nav
   ],
   templateUrl: './search.html',
   styleUrls: ['./search.css']
