@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/api/images")
 @CrossOrigin(origins = "http://localhost:4200") //Para Angular
@@ -51,4 +53,34 @@ public class ImageController {
 
         return ResponseEntity.ok(image);
     }
+    @GetMapping("/{id}/download")
+    public ResponseEntity<byte[]> downloadImage(@PathVariable String id) {
+        if (id == null || id.trim().isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        // Obtener detalles de la imagen para conseguir la URL
+        ImageDTO image = flickrService.getImageDetail(id);
+        if (image == null || image.getLargeUrl() == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        try {
+            // Descargar bytes de la imagen
+            byte[] imageBytes = flickrService.downloadImageBytes(image.getLargeUrl());
+
+            // Crear nombre de archivo seguro
+            String filename = (image.getTitle() != null ? image.getTitle() : "image")
+                    .replaceAll("[^a-zA-Z0-9.-]", "_") + ".jpg";
+
+            return ResponseEntity.ok()
+                    .header("Content-Type", "image/jpeg")
+                    .header("Content-Disposition", "attachment; filename=\"" + filename + "\"")
+                    .body(imageBytes);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

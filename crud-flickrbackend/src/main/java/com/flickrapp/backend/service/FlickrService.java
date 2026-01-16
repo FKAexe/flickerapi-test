@@ -13,11 +13,17 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class FlickrService {
+
+
 
     private static final Logger logger = LoggerFactory.getLogger(FlickrService.class);
 
@@ -336,4 +342,25 @@ public class FlickrService {
             return 0;
         }
     }
+    //Descargar imagen
+    public byte[] downloadImageBytes(String imageUrl) throws IOException {
+        logger.info("Downloading image from: {}", imageUrl);
+
+        URL url = new URL(imageUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+
+        // Añadir headers para que Flickr acepte la request
+        connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36");
+        connection.setRequestProperty("Referer", "https://www.flickr.com/");
+
+        try (InputStream inputStream = connection.getInputStream()) {
+            byte[] imageBytes = inputStream.readAllBytes();
+            logger.info("Successfully downloaded {} bytes", imageBytes.length);
+            return imageBytes;
+        } finally {
+            connection.disconnect();
+        }
+    }
 }
+

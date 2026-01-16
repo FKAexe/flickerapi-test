@@ -29,4 +29,13 @@ export class Details {
       .split(' ')
       .filter(tag => tag.length > 0)
   }
+  async onDownload(): Promise<void> {
+    const blob = await this.flickrService.downloadImage(this.id);
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${this.image.title || 'image'}.jpg`;
+    link.click();
+    window.URL.revokeObjectURL(url);
+}
 }
